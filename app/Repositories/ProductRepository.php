@@ -45,9 +45,18 @@ class ProductRepository extends AbstractRepository
      *
      * @return $object
      */
-    public function getAll()
+    public function getAll($data = [])
     {
-        return $this->object->with("categories")->get();
+        $q = $this->buildQuery($data);
+        $q->with("categories");
+
+        if(isset($data["category"])){
+            $q->whereHas('categories', function($qc) use($data){
+                $qc->where('category_id', '=', $data["category"]);
+            });
+        }
+
+        return $q->get();
     }
 
     /**

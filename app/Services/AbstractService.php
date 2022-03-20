@@ -43,9 +43,9 @@ class AbstractService implements IService
      *
      * @return mixed
      */
-    public function getAll()
+    public function getAll($data = [])
     {
-        return $this->repository->getAll();
+        return $this->repository->getAll($data);
     }
 
     /**

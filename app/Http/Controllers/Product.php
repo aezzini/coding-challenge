@@ -31,12 +31,12 @@ class Product extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
             $result = [
                 'status' => 200,
-                'data' => $this->productService->getAll()
+                'data' => $this->productService->getAll($request->all())
             ];
         } catch (Exception $e) {
             $result = [
