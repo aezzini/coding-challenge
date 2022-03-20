@@ -29,12 +29,12 @@ class Category extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
             $result = [
                 'status' => 200,
-                'data' => $this->categoryService->getAll()
+                'data' => $this->categoryService->getAll($request->all())
             ];
         } catch (Exception $e) {
             $result = [
