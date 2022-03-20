@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Services;
+
+use App\Repositories\#NAME#Repository;
+
+class #NAME#Service extends AbstractService
+{
+
+    /**
+     * #NAME#Service Constructor
+     *
+     * @param #NAME#Repository $#sNAME#Repository
+     */
+    public function __construct(#NAME#Repository $#sNAME#Repository)
+    {
+        $this->repository = $#sNAME#Repository;
+        $this->slug = "#sNAME#";
+    }
+
+}

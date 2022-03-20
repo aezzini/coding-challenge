@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\#NAME#;
+
+class #NAME#Repository extends AbstractRepository
+{
+
+    /**
+     * #NAME#Repository Constructor
+     *
+     * @param #NAME# $#sNAME#
+     */
+    public function __construct(#NAME# $#sNAME#)
+    {
+        $this->object = $#sNAME#;
+    }
+    
+}
