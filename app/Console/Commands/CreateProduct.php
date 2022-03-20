@@ -55,7 +55,7 @@ class CreateProduct extends Command
             $data["price"] = $price;
         }
         if($categories = $this->ask('Please proive the product categories (separated by ,) [ex: 1,2,3] (optional)')){
-            $data["categories"] = explode(",", $categories);
+            $data["categories"] = $categories;
         }
 
         $productRepository = new ProductRepository(new Product());
