@@ -53,12 +53,17 @@ class Product extends Model
     /**
      * Set Product Image
      */
-    public function setImageAttribute($value)
+    public function setImageAttribute($value, $upload = true)
     {
-        if ($this->image) {
-            Storage::delete(env('APP_UPLOAD_PATH') . DIRECTORY_SEPARATOR . $this->image);
+        if(!$upload){
+            $this->attributes['image'] = $value;
         }
-        $this->attributes['image'] = basename(Storage::put(env('APP_UPLOAD_PATH'), $value));
+        else{
+            if ($this->image) {
+                Storage::delete(env('APP_UPLOAD_PATH') . DIRECTORY_SEPARATOR . $this->image);
+            }
+            $this->attributes['image'] = basename(Storage::put(env('APP_UPLOAD_PATH'), $value));
+        }
     }
 
     /**

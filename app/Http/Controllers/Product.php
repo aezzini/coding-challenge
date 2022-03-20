@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\ProductService;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
 class Product extends Controller
