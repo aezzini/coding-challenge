@@ -14,8 +14,10 @@ https://github.com/NextmediaMa/coding-challenges/tree/master/Junior%20Software%2
 4. Initialize the database schema using `php artisan migrate`
 5. Init Category seeder `php artisan db:seed --class=CategorySeeder`
 6. Init Product seeder `php artisan db:seed --class=ProductSeeder`
+8. Generate the encryption key `php artisan key:generate`
 7. Start the application `php artisan serve`
-8. Use `npm run watch` if needed
+9. Build the VueJS files `npm run dev` 
+10. Use `npm run watch` if needed
 
 ## Custom Commands
 - Create category `php artisan create:category`
