@@ -31,7 +31,7 @@ class ProductRepository extends AbstractRepository
             $categories = $data["categories"];
             unset($data["categories"]);
             $object = parent::store($data);
-            $object->categories()->sync($categories);
+            $object->categories()->sync(explode(",",$categories));
 
             return $object->fresh();
         } else {
@@ -50,13 +50,16 @@ class ProductRepository extends AbstractRepository
         $q = $this->buildQuery($data);
         $q->with("categories");
 
-        if(isset($data["category"])){
+        if(isset($data["category"]) && $data["category"]){
             $q->whereHas('categories', function($qc) use($data){
                 $qc->where('category_id', '=', $data["category"]);
             });
         }
 
-        return $q->get();
+        $qt = clone $q;
+        $qt->skip(0)->limit(-1);
+
+        return ["items" => $q->get(), "total" => $qt->count()];
     }
 
     /**

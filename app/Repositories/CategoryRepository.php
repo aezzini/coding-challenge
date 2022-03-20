@@ -20,6 +20,29 @@ class CategoryRepository extends AbstractRepository
     }
 
     /**
+     * Get all.
+     *
+     * @return $object
+     */
+    public function getAll($data = [])
+    {
+        $q = $this->buildQuery($data);
+        $q->with("parent");
+
+        if(!isset($data["without_items"])){
+            $qt = clone $q;
+            $qt->skip(0)->take(PHP_INT_MAX);
+    
+            return ["items" => $q->get(), "total" => $qt->count()];
+        }
+        else{
+            $qt = clone $q;
+            return $qt->skip(0)->take(PHP_INT_MAX)->get();
+        }
+
+    }
+
+    /**
      * DB Data Validation.
      *
      * @param array $data

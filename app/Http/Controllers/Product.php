@@ -157,6 +157,6 @@ class Product extends Controller
      */
     public function image($name)
     {
-        return Storage::response(env('APP_UPLOAD_PATH') . DIRECTORY_SEPARATOR . $name);
+        return Storage::response(env('APP_UPLOAD_PATH', 'uploads') . DIRECTORY_SEPARATOR . $name);
     }
 }

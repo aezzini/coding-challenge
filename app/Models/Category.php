@@ -18,4 +18,15 @@ class Category extends Model
         'name',
         'parent_category_id'
     ];
+
+    public function child()
+    {
+        return $this->belongsTo(Category::class, 'child_category_id', 'id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_category_id', 'id');
+    }
+    
 }

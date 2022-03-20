@@ -46,7 +46,7 @@ class Product extends Model
      */
     public function setCategoriesAttribute($value)
     {
-        $this->categories()->sync($value);
+        $this->categories()->sync(explode(",",$value));
         unset($this->attributes['categories']);
     }
 
@@ -60,9 +60,9 @@ class Product extends Model
         }
         else{
             if ($this->image) {
-                Storage::delete(env('APP_UPLOAD_PATH') . DIRECTORY_SEPARATOR . $this->image);
+                Storage::delete(env('APP_UPLOAD_PATH', 'uploads') . DIRECTORY_SEPARATOR . $this->image);
             }
-            $this->attributes['image'] = basename(Storage::put(env('APP_UPLOAD_PATH'), $value));
+            $this->attributes['image'] = basename(Storage::put(env('APP_UPLOAD_PATH', 'uploads'), $value));
         }
     }
 
@@ -75,7 +75,7 @@ class Product extends Model
         self::deleting(function ($product) {
 
             if ($image = $product->image) {
-                Storage::delete(env('APP_UPLOAD_PATH') . DIRECTORY_SEPARATOR . $image);
+                Storage::delete(env('APP_UPLOAD_PATH', 'uploads') . DIRECTORY_SEPARATOR . $image);
             }
 
             if ($product->categories()) {

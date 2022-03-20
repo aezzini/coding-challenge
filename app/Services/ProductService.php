@@ -31,7 +31,6 @@ class ProductService extends AbstractService
             'name' => 'required|bail|min:2|max:255',
             'description' => 'bail|max:255',
             'price' => 'numeric',
-            'categories' => 'array',
             'image' => 'mimes:jpeg,jpg,png,gif|max:10000'
         ];
 

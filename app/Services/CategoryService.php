@@ -30,7 +30,7 @@ class CategoryService extends AbstractService
         /**
          * Validate parent category
          */
-        if ($id == $data["parent_category_id"]) {
+        if (isset($data["parent_category_id"]) && $id == $data["parent_category_id"]) {
             throw new InvalidArgumentException("Unable to update data, invalid parent category.", 400);
         }
 
@@ -44,10 +44,8 @@ class CategoryService extends AbstractService
      */
     public function validate($data)
     {
-
         $rules = [
             'name' => 'required|bail|min:2|max:255',
-            'parent_category_id' => 'numeric',
         ];
 
         $validator = Validator::make($data, $rules);
