@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Product;
-use Illuminate\Support\Facades\Storage;
 
 class ProductRepository extends AbstractRepository
 {
@@ -16,6 +15,29 @@ class ProductRepository extends AbstractRepository
     public function __construct(Product $product)
     {
         $this->object = $product;
+    }
+
+    /**
+     * Store to DB if there are no errors.
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function store($data)
+    {
+        if (isset($data["categories"])) {
+
+            $this->validate($data);
+            $categories = $data["categories"];
+            unset($data["categories"]);
+            $object = parent::store($data);
+            $object->categories()->sync($categories);
+
+            return $object->fresh();
+        } else {
+
+            return parent::store($data);
+        }
     }
 
     /**
@@ -37,92 +59,5 @@ class ProductRepository extends AbstractRepository
     public function getById($id)
     {
         return $this->object->where('id', $id)->with("categories")->get();
-    }
-
-    /**
-     * Store
-     *
-     * @param $data
-     * @return $object
-     */
-    public function store($data)
-    {
-        $object = new $this->object;
-
-        if (isset($data["image"])) {
-            $data["image"] = Storage::put("uploads", $data["image"]);
-        }
-
-        if(isset($data["categories"])){
-            $categories = $data["categories"];
-            unset($data["categories"]);
-        }
-
-        /**
-         * Fill object properties
-         */
-        foreach ($data as $key => $value) {
-            $object->$key = $value;
-        }
-
-        $object->save();
-        if(isset($categories)){
-            $object->categories()->sync($categories);
-        }
-        $object->save();
-
-        return $object->fresh();
-    }
-
-    /**
-     * Update
-     *
-     * @param $data
-     * @return $object
-     */
-    public function update($data, $id)
-    {
-        $object = $this->object->find($id);
-
-        if (isset($data["image"])) {
-            $data["image"] = Storage::put("uploads", $data["image"]);
-            if ($oldImage = $object->image) {
-                Storage::delete($oldImage);
-            }
-        }
-
-        if(isset($data["categories"])){
-            $object->categories()->sync($data["categories"]);
-            unset($data["categories"]);
-        }
-
-        /**
-         * Fill object properties
-         */
-        foreach ($data as $key => $value) {
-            $object->$key = $value;
-        }
-
-        $object->update();
-
-        return $object;
-    }
-
-    /**
-     * Update
-     *
-     * @param $data
-     * @return $object
-     */
-    public function delete($id)
-    {
-        $object = $this->object->find($id);
-        if ($image = $object->image) {
-            Storage::delete($image);
-        }
-
-        $object->delete();
-
-        return $object;
     }
 }

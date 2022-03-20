@@ -10,16 +10,6 @@ class AbstractRepository implements IRepository
     protected $object;
 
     /**
-     * AbstractRepository Constructor
-     *
-     * @param $object
-     */
-    public function __construct($object)
-    {
-        $this->object = $object;
-    }
-
-    /**
      * Get all.
      *
      * @return $object
@@ -37,7 +27,7 @@ class AbstractRepository implements IRepository
      */
     public function getById($id)
     {
-        return $this->object->where('id', $id)->get();
+        return $this->object->findOrFail($id);
     }
 
     /**
@@ -48,18 +38,10 @@ class AbstractRepository implements IRepository
      */
     public function store($data)
     {
+        $this->validate($data);
         $object = new $this->object;
 
-        /**
-         * Fill object properties
-         */
-        foreach ($data as $key => $value) {
-            $object->$key = $value;
-        }
-
-        $object->save();
-
-        return $object->fresh();
+        return $object->create($data);
     }
 
     /**
@@ -70,18 +52,10 @@ class AbstractRepository implements IRepository
      */
     public function update($data, $id)
     {
-        $object = $this->object->find($id);
+        $this->validate($data);
+        $object = $this->object->findOrFail($id);
 
-        /**
-         * Fill object properties
-         */
-        foreach ($data as $key => $value) {
-            $object->$key = $value;
-        }
-
-        $object->update();
-
-        return $object;
+        return $object->update($data);
     }
 
     /**
@@ -92,9 +66,19 @@ class AbstractRepository implements IRepository
      */
     public function delete($id)
     {
-        $object = $this->object->find($id);
+        $object = $this->object->findOrFail($id);
         $object->delete();
 
-        return $object;
+        return $object->delete();
+    }
+
+    /**
+     * DB Data Validation
+     *
+     * @param array $data
+     */
+    public function validate($data)
+    {
+        // Data validation goes here
     }
 }

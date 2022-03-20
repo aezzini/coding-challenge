@@ -31,13 +31,14 @@ class Category extends Controller
      */
     public function index()
     {
-        $result = ['status' => 200];
-
         try {
-            $result['data'] = $this->categoryService->getAll();
+            $result = [
+                'status' => 200,
+                'data' => $this->categoryService->getAll()
+            ];
         } catch (Exception $e) {
             $result = [
-                'status' => 500,
+                'status' => $e->getCode(),
                 'error' => $e->getMessage()
             ];
         }
@@ -53,18 +54,14 @@ class Category extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only([
-            'name',
-            'parent_category_id'
-        ]);
-
-        $result = ['status' => 200];
-
         try {
-            $result['data'] = $this->categoryService->store($data);
+            $result = [
+                'status' => 200,
+                'data' => $this->categoryService->store($request->all())
+            ];
         } catch (Exception $e) {
             $result = [
-                'status' => 500,
+                'status' => $e->getCode(),
                 'error' => $e->getMessage()
             ];
         }
@@ -80,13 +77,14 @@ class Category extends Controller
      */
     public function show($id)
     {
-        $result = ['status' => 200];
-
         try {
-            $result['data'] = $this->categoryService->getById($id);
+            $result = [
+                'status' => 200,
+                'data' => $this->categoryService->getById($id)
+            ];
         } catch (Exception $e) {
             $result = [
-                'status' => 500,
+                'status' => $e->getCode(),
                 'error' => $e->getMessage()
             ];
         }
@@ -102,18 +100,14 @@ class Category extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->only([
-            'name',
-            'parent_category_id'
-        ]);
-
-        $result = ['status' => 200];
-
         try {
-            $result['data'] = $this->categoryService->update($data, $id);
+            $result = [
+                'status' => 200,
+                'data' => $this->categoryService->update($request->all(), $id),
+            ];
         } catch (Exception $e) {
             $result = [
-                'status' => 500,
+                'status' => $e->getCode(),
                 'error' => $e->getMessage()
             ];
         }
@@ -129,13 +123,14 @@ class Category extends Controller
      */
     public function destroy($id)
     {
-        $result = ['status' => 200];
-
         try {
-            $result['data'] = $this->categoryService->deleteById($id);
+            $result = [
+                'status' => 200,
+                'data' => $this->categoryService->deleteById($id)
+            ];
         } catch (Exception $e) {
             $result = [
-                'status' => 500,
+                'status' => $e->getCode(),
                 'error' => $e->getMessage()
             ];
         }

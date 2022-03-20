@@ -20,40 +20,15 @@ class ProductService extends AbstractService
     }
 
     /**
-     * Update data
-     * Store to DB if there are no errors.
-     *
-     * @param array $data
-     * @return mixed
-     */
-    public function update($data, $id)
-    {
-        $validator = Validator::make($data, [
-            'name' => 'bail|min:2|max:255',
-            'description' => 'bail|max:255',
-            'price' => 'numeric',
-            'categories' => 'array',
-            'image' => 'mimes:jpeg,jpg,png,gif|max:10000'
-        ]);
-
-        if ($validator->fails()) {
-            throw new InvalidArgumentException($validator->errors()->first());
-        }
-
-        return parent::update($data, $id);
-    }
-
-    /**
      * Validate data.
-     * Store to DB if there are no errors.
      *
      * @param array $data
-     * @return mixed
      */
-    public function store($data)
+    public function validate($data)
     {
+
         $rules = [
-            'name' => 'bail|min:2|max:255',
+            'name' => 'required|bail|min:2|max:255',
             'description' => 'bail|max:255',
             'price' => 'numeric',
             'categories' => 'array',
@@ -63,9 +38,7 @@ class ProductService extends AbstractService
         $validator = Validator::make($data, $rules);
 
         if ($validator->fails()) {
-            throw new InvalidArgumentException($validator->errors()->first());
+            throw new InvalidArgumentException($validator->errors()->first(), 400);
         }
-
-        return parent::store($data);
     }
 }

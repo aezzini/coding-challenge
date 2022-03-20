@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Services\ProductService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Controller
 {
@@ -32,13 +34,14 @@ class Product extends Controller
      */
     public function index()
     {
-        $result = ['status' => 200];
-
         try {
-            $result['data'] = $this->productService->getAll();
+            $result = [
+                'status' => 200,
+                'data' => $this->productService->getAll()
+            ];
         } catch (Exception $e) {
             $result = [
-                'status' => 500,
+                'status' => $e->getCode(),
                 'error' => $e->getMessage()
             ];
         }
@@ -54,24 +57,19 @@ class Product extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only([
-            'name',
-            'description',
-            'price',
-            'categories',
-        ]);
-
+        $data = $request->all();
         if ($request->hasFile('image')) {
             $data["image"] = $request->image;
         }
 
-        $result = ['status' => 200];
-
         try {
-            $result['data'] = $this->productService->store($data);
+            $result = [
+                'status' => 200,
+                'data' => $this->productService->store($data)
+            ];
         } catch (Exception $e) {
             $result = [
-                'status' => 500,
+                'status' => $e->getCode(),
                 'error' => $e->getMessage()
             ];
         }
@@ -87,13 +85,14 @@ class Product extends Controller
      */
     public function show($id)
     {
-        $result = ['status' => 200];
-
         try {
-            $result['data'] = $this->productService->getById($id);
+            $result = [
+                'status' => 200,
+                'data' => $this->productService->getById($id)
+            ];
         } catch (Exception $e) {
             $result = [
-                'status' => 500,
+                'status' => $e->getCode(),
                 'error' => $e->getMessage()
             ];
         }
@@ -109,25 +108,19 @@ class Product extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->only([
-            'name',
-            'description',
-            'price',
-            'categories',
-        ]);
-
+        $data = $request->all();
         if ($request->hasFile('image')) {
             $data["image"] = $request->image;
         }
 
-        $result = ['status' => 200];
-
-
         try {
-            $result['data'] = $this->productService->update($data, $id);
+            $result = [
+                'status' => 200,
+                'data' => $this->productService->update($data, $id)
+            ];
         } catch (Exception $e) {
             $result = [
-                'status' => 500,
+                'status' => $e->getCode(),
                 'error' => $e->getMessage()
             ];
         }
@@ -143,16 +136,28 @@ class Product extends Controller
      */
     public function destroy($id)
     {
-        $result = ['status' => 200];
-
         try {
-            $result['data'] = $this->productService->deleteById($id);
+            $result = [
+                'status' => 200,
+                'data' => $this->productService->deleteById($id)
+            ];
         } catch (Exception $e) {
             $result = [
-                'status' => 500,
+                'status' => $e->getCode(),
                 'error' => $e->getMessage()
             ];
         }
         return response()->json($result, $result['status']);
+    }
+
+    /**
+     * Product image
+     *
+     * @param $name
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     */
+    public function image($name)
+    {
+        return Storage::response(env('APP_UPLOAD_PATH') . DIRECTORY_SEPARATOR . $name);
     }
 }

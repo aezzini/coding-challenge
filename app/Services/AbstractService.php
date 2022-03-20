@@ -15,11 +15,6 @@ class AbstractService implements IService
     protected $repository;
 
     /**
-     * @var string
-     */
-    protected $slug;
-
-    /**
      * Delete by id.
      *
      * @param $id
@@ -35,7 +30,7 @@ class AbstractService implements IService
             DB::rollBack();
             Log::info($e->getMessage());
 
-            throw new InvalidArgumentException("Unable to delete ".$this->slug." data");
+            throw new InvalidArgumentException("Unable to delete data", 406);
         }
 
         DB::commit();
@@ -73,6 +68,8 @@ class AbstractService implements IService
      */
     public function update($data, $id)
     {
+        $this->validate($data);
+
         DB::beginTransaction();
 
         try {
@@ -81,7 +78,7 @@ class AbstractService implements IService
             DB::rollBack();
             Log::info($e->getMessage());
 
-            throw new InvalidArgumentException("Unable to update ".$this->slug." data");
+            throw new InvalidArgumentException("Unable to update data", 406);
         }
 
         DB::commit();
@@ -98,8 +95,19 @@ class AbstractService implements IService
      */
     public function store($data)
     {
+        $this->validate($data);
         $object = $this->repository->store($data);
 
         return $object;
+    }
+
+    /**
+     * Validate data.
+     *
+     * @param array $data
+     */
+    public function validate($data)
+    {
+        // Data validation goes here
     }
 }
