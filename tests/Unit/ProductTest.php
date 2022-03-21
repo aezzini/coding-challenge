@@ -16,7 +16,7 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    public function test_product_controller()
+    public function testProductController()
     {
         $productRepository = new ProductRepository(new Product());
         $productService = new ProductService($productRepository);
@@ -32,13 +32,13 @@ class ProductTest extends TestCase
         /**
          * Test product create
          */
-        $request = Request::create('/api/product/add', 'POST',[
-            'name'     =>  'AYOUB',
+        $request = Request::create('/api/product/add', 'POST', [
+            'name' => 'AYOUB',
         ]);
         $response = $productController->store($request);
         $this->assertEquals(200, $response->getStatusCode());
 
-        $id = json_decode($response->getContent(),1)["data"]["id"];
+        $id = json_decode($response->getContent(), 1)["data"]["id"];
 
         /**
          * Test product show
@@ -50,8 +50,8 @@ class ProductTest extends TestCase
         /**
          * Test product update
          */
-        $request = Request::create('/api/product/update/', 'POST',[
-            'name'     =>  'AYOUB_EDITED',
+        $request = Request::create('/api/product/update/', 'POST', [
+            'name' => 'AYOUB_EDITED',
         ]);
         $response = $productController->update($request, $id);
         $this->assertEquals(200, $response->getStatusCode());

@@ -19,7 +19,6 @@ class AbstractRepository implements IRepository
         $q = $this->buildQuery($data);
         return $q->get();
     }
-    
 
     /**
      * Get all.
@@ -32,25 +31,24 @@ class AbstractRepository implements IRepository
         $page = 1;
         $order = "id";
         $orderDirection = "DESC";
-        
-        if(isset($data["limit"])){
+
+        if (isset($data["limit"])) {
             $limit = $data["limit"];
         }
-        if(isset($data["page"])){
+        if (isset($data["page"])) {
             $page = $data["page"];
         }
-        if(isset($data["order"])){
+        if (isset($data["order"])) {
             $order = $data["order"];
             $orderDirection = "ASC";
         }
-        if(isset($data["orderDirection"])){
+        if (isset($data["orderDirection"])) {
             $orderDirection = $data["orderDirection"];
         }
 
-        $q = $this->object->skip($limit*($page-1))->take($limit)->orderBy($order, $orderDirection);
+        $q = $this->object->skip($limit * ($page - 1))->take($limit)->orderBy($order, $orderDirection);
         return $q;
     }
-    
 
     /**
      * Get by id

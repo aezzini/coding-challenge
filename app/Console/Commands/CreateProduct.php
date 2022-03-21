@@ -42,30 +42,30 @@ class CreateProduct extends Command
     public function handle()
     {
         $name = $this->ask('Please proive the product name* (required)');
-        if(empty($name)){
+        if (empty($name)) {
             $this->error("Not enough arguments (missing: \"product name\").");
             return 0;
         }
 
         $data = ["name" => $name];
-        if($description = $this->ask('Please proive the product description (optional)')){
+        if ($description = $this->ask('Please proive the product description (optional)')) {
             $data["description"] = $description;
         }
-        if($price = $this->ask('Please proive the product price (optional)')){
+        if ($price = $this->ask('Please proive the product price (optional)')) {
             $data["price"] = $price;
         }
-        if($categories = $this->ask('Please proive the product categories (separated by ,) [ex: 1,2,3] (optional)')){
+        if ($categories = $this->ask('Please proive the product categories (separated by ,) [ex: 1,2,3] (optional)')) {
             $data["categories"] = $categories;
         }
 
         $productRepository = new ProductRepository(new Product());
         $productService = new ProductService($productRepository);
 
-        try{
+        try {
             $product = $productService->store($data);
-            $this->info("Product created successfully, id: ".$product->id);
+            $this->info("Product created successfully, id: " . $product->id);
         } catch (Exception $e) {
-            $this->error("Error: ".$e->getMessage());
+            $this->error("Error: " . $e->getMessage());
         }
     }
 }

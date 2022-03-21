@@ -31,7 +31,7 @@ class ProductService extends AbstractService
             'name' => 'required|bail|min:2|max:255',
             'description' => 'bail|max:255',
             'price' => 'numeric',
-            'image' => 'mimes:jpeg,jpg,png,gif|max:10000'
+            'image' => 'mimes:jpeg,jpg,png,gif|max:10000',
         ];
 
         $validator = Validator::make($data, $rules);

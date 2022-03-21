@@ -40,25 +40,25 @@ class MakeService extends Command
     {
         $name = $this->ask('Please proive the service name (Ex. Product)');
 
-        if(empty($name)){
+        if (empty($name)) {
             $this->error("Not enough arguments (missing: \"service name\").");
             return 0;
         }
 
         $serviceName = ucfirst($name);
-        if(!str_contains($name, "Service")){
+        if (!str_contains($name, "Service")) {
             $serviceName = ucfirst(strtolower($name));
-            $serviceName.= "Service";
+            $serviceName .= "Service";
         }
 
         $filesystem = new Filesystem();
-        $serviceDir = app_path().DIRECTORY_SEPARATOR."Services".DIRECTORY_SEPARATOR;
-        $serviceFilePath = $serviceDir.$serviceName.".php";
+        $serviceDir = app_path() . DIRECTORY_SEPARATOR . "Services" . DIRECTORY_SEPARATOR;
+        $serviceFilePath = $serviceDir . $serviceName . ".php";
 
         /**
          * Check if service exists already
          */
-        if($filesystem->exists($serviceFilePath)){
+        if ($filesystem->exists($serviceFilePath)) {
             $this->error("Service file exists already... ($serviceFilePath)");
             return 0;
         }
@@ -66,9 +66,9 @@ class MakeService extends Command
         /**
          * Create the service file from Mock
          */
-        $mockDir = __DIR__.DIRECTORY_SEPARATOR."Mocks".DIRECTORY_SEPARATOR;
-        $filesystem->copy($mockDir."Service.mock",$serviceFilePath);
-        $filesystem->replaceInFile(["#NAME#", "#sNAME#"],[$name, lcfirst($name)],$serviceFilePath);
+        $mockDir = __DIR__ . DIRECTORY_SEPARATOR . "Mocks" . DIRECTORY_SEPARATOR;
+        $filesystem->copy($mockDir . "Service.mock", $serviceFilePath);
+        $filesystem->replaceInFile(["#NAME#", "#sNAME#"], [$name, lcfirst($name)], $serviceFilePath);
 
         $this->info("Service file created successfully... ($serviceFilePath)");
 

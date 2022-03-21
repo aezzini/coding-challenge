@@ -3,11 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 use Carbon\Carbon;
+use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class ProductSeeder extends Seeder
 {
@@ -33,19 +32,19 @@ class ProductSeeder extends Seeder
                 'name' => strtoupper($faker->sentence(1)),
                 'description' => $faker->sentence(3),
                 'price' => $faker->randomFloat(3, 0, 1000),
-                'created_at' => Carbon::now()
+                'created_at' => Carbon::now(),
             ]);
 
             if ($faker->boolean()) {
-                $img = $faker->numberBetween(1,5).".png";
-                $from = public_path("seeds_images".DIRECTORY_SEPARATOR.$img);
-                
-                $upload_dir = storage_path("app".DIRECTORY_SEPARATOR."uploads");
-                if(!file_exists($upload_dir)){
+                $img = $faker->numberBetween(1, 5) . ".png";
+                $from = public_path("seeds_images" . DIRECTORY_SEPARATOR . $img);
+
+                $upload_dir = storage_path("app" . DIRECTORY_SEPARATOR . "uploads");
+                if (!file_exists($upload_dir)) {
                     mkdir($upload_dir);
                 }
 
-                $to = $upload_dir.DIRECTORY_SEPARATOR.md5($img.rand().uniqid()).".".pathinfo($from, PATHINFO_EXTENSION);
+                $to = $upload_dir . DIRECTORY_SEPARATOR . md5($img . rand() . uniqid()) . "." . pathinfo($from, PATHINFO_EXTENSION);
                 copy($from, $to);
                 $product->setImageAttribute(basename($to), false);
             }

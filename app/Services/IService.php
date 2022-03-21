@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-Interface IService
+interface IService
 {
-    
+
 }

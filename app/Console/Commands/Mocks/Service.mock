@@ -15,7 +15,6 @@ class #NAME#Service extends AbstractService
     public function __construct(#NAME#Repository $#sNAME#Repository)
     {
         $this->repository = $#sNAME#Repository;
-        $this->slug = "#sNAME#";
     }
 
 }

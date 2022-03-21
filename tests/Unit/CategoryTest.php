@@ -16,7 +16,7 @@ class CategoryTest extends TestCase
      *
      * @return void
      */
-    public function test_category_controller()
+    public function testCategoryController()
     {
         $categoryRepository = new CategoryRepository(new Category());
         $categoryService = new CategoryService($categoryRepository);
@@ -32,13 +32,13 @@ class CategoryTest extends TestCase
         /**
          * Test category create
          */
-        $request = Request::create('/api/category/add', 'POST',[
-            'name'     =>  'AYOUB',
+        $request = Request::create('/api/category/add', 'POST', [
+            'name' => 'AYOUB',
         ]);
         $response = $categoryController->store($request);
         $this->assertEquals(200, $response->getStatusCode());
 
-        $id = json_decode($response->getContent(),1)["data"]["id"];
+        $id = json_decode($response->getContent(), 1)["data"]["id"];
 
         /**
          * Test category show
@@ -50,8 +50,8 @@ class CategoryTest extends TestCase
         /**
          * Test category update
          */
-        $request = Request::create('/api/category/update/', 'POST',[
-            'name'     =>  'AYOUB_EDITED',
+        $request = Request::create('/api/category/update/', 'POST', [
+            'name' => 'AYOUB_EDITED',
         ]);
         $response = $categoryController->update($request, $id);
         $this->assertEquals(200, $response->getStatusCode());

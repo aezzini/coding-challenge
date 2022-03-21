@@ -11,7 +11,6 @@ class Product extends Model
 {
     use HasFactory;
 
-
     /**
      * The product categories.
      */
@@ -46,7 +45,7 @@ class Product extends Model
      */
     public function setCategoriesAttribute($value)
     {
-        $this->categories()->sync(explode(",",$value));
+        $this->categories()->sync(explode(",", $value));
         unset($this->attributes['categories']);
     }
 
@@ -55,10 +54,9 @@ class Product extends Model
      */
     public function setImageAttribute($value, $upload = true)
     {
-        if(!$upload){
+        if (!$upload) {
             $this->attributes['image'] = $value;
-        }
-        else{
+        } else {
             if ($this->image) {
                 Storage::delete(env('APP_UPLOAD_PATH', 'uploads') . DIRECTORY_SEPARATOR . $this->image);
             }

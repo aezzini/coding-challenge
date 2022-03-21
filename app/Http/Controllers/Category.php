@@ -34,12 +34,12 @@ class Category extends Controller
         try {
             $result = [
                 'status' => 200,
-                'data' => $this->categoryService->getAll($request->all())
+                'data' => $this->categoryService->getAll($request->all()),
             ];
         } catch (Exception $e) {
             $result = [
                 'status' => $e->getCode(),
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
 
@@ -57,12 +57,12 @@ class Category extends Controller
         try {
             $result = [
                 'status' => 200,
-                'data' => $this->categoryService->store($request->all())
+                'data' => $this->categoryService->store($request->all()),
             ];
         } catch (Exception $e) {
             $result = [
                 'status' => $e->getCode(),
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
 
@@ -80,12 +80,12 @@ class Category extends Controller
         try {
             $result = [
                 'status' => 200,
-                'data' => $this->categoryService->getById($id)
+                'data' => $this->categoryService->getById($id),
             ];
         } catch (Exception $e) {
             $result = [
                 'status' => $e->getCode(),
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
         return response()->json($result, $result['status']);
@@ -108,7 +108,7 @@ class Category extends Controller
         } catch (Exception $e) {
             $result = [
                 'status' => $e->getCode(),
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
 
@@ -126,12 +126,12 @@ class Category extends Controller
         try {
             $result = [
                 'status' => 200,
-                'data' => $this->categoryService->deleteById($id)
+                'data' => $this->categoryService->deleteById($id),
             ];
         } catch (Exception $e) {
             $result = [
                 'status' => $e->getCode(),
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
         return response()->json($result, $result['status']);

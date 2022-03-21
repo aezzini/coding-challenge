@@ -40,25 +40,25 @@ class MakeRepository extends Command
     {
         $name = $this->ask('Please proive the repository name (Ex. Product)');
 
-        if(empty($name)){
+        if (empty($name)) {
             $this->error("Not enough arguments (missing: \"repository name\").");
             return 0;
         }
 
         $repositoryName = ucfirst($name);
-        if(!str_contains($name, "Repository")){
+        if (!str_contains($name, "Repository")) {
             $repositoryName = ucfirst(strtolower($name));
-            $repositoryName.= "Repository";
+            $repositoryName .= "Repository";
         }
 
         $filesystem = new Filesystem();
-        $repositoryDir = app_path().DIRECTORY_SEPARATOR."repositories".DIRECTORY_SEPARATOR;
-        $repositoryFilePath = $repositoryDir.$repositoryName.".php";
+        $repositoryDir = app_path() . DIRECTORY_SEPARATOR . "repositories" . DIRECTORY_SEPARATOR;
+        $repositoryFilePath = $repositoryDir . $repositoryName . ".php";
 
         /**
          * Check if repository exists already
          */
-        if($filesystem->exists($repositoryFilePath)){
+        if ($filesystem->exists($repositoryFilePath)) {
             $this->error("Repository file exists already... ($repositoryFilePath)");
             return 0;
         }
@@ -66,9 +66,9 @@ class MakeRepository extends Command
         /**
          * Create the repository file from Mock
          */
-        $mockDir = __DIR__.DIRECTORY_SEPARATOR."Mocks".DIRECTORY_SEPARATOR;
-        $filesystem->copy($mockDir."Repository.mock",$repositoryFilePath);
-        $filesystem->replaceInFile(["#NAME#", "#sNAME#"],[$name, lcfirst($name)],$repositoryFilePath);
+        $mockDir = __DIR__ . DIRECTORY_SEPARATOR . "Mocks" . DIRECTORY_SEPARATOR;
+        $filesystem->copy($mockDir . "Repository.mock", $repositoryFilePath);
+        $filesystem->replaceInFile(["#NAME#", "#sNAME#"], [$name, lcfirst($name)], $repositoryFilePath);
 
         $this->info("Repository file created successfully... ($repositoryFilePath)");
 

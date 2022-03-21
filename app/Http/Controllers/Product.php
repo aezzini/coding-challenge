@@ -36,12 +36,12 @@ class Product extends Controller
         try {
             $result = [
                 'status' => 200,
-                'data' => $this->productService->getAll($request->all())
+                'data' => $this->productService->getAll($request->all()),
             ];
         } catch (Exception $e) {
             $result = [
                 'status' => $e->getCode(),
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
 
@@ -64,12 +64,12 @@ class Product extends Controller
         try {
             $result = [
                 'status' => 200,
-                'data' => $this->productService->store($data)
+                'data' => $this->productService->store($data),
             ];
         } catch (Exception $e) {
             $result = [
                 'status' => $e->getCode(),
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
 
@@ -87,12 +87,12 @@ class Product extends Controller
         try {
             $result = [
                 'status' => 200,
-                'data' => $this->productService->getById($id)
+                'data' => $this->productService->getById($id),
             ];
         } catch (Exception $e) {
             $result = [
                 'status' => $e->getCode(),
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
         return response()->json($result, $result['status']);
@@ -115,12 +115,12 @@ class Product extends Controller
         try {
             $result = [
                 'status' => 200,
-                'data' => $this->productService->update($data, $id)
+                'data' => $this->productService->update($data, $id),
             ];
         } catch (Exception $e) {
             $result = [
                 'status' => $e->getCode(),
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
 
@@ -138,12 +138,12 @@ class Product extends Controller
         try {
             $result = [
                 'status' => 200,
-                'data' => $this->productService->deleteById($id)
+                'data' => $this->productService->deleteById($id),
             ];
         } catch (Exception $e) {
             $result = [
                 'status' => $e->getCode(),
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
         return response()->json($result, $result['status']);

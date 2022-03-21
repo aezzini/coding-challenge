@@ -16,7 +16,7 @@ class Category extends Model
      */
     protected $fillable = [
         'name',
-        'parent_category_id'
+        'parent_category_id',
     ];
 
     public function child()
@@ -28,5 +28,5 @@ class Category extends Model
     {
         return $this->belongsTo(Category::class, 'parent_category_id', 'id');
     }
-    
+
 }

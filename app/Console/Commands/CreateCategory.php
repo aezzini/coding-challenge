@@ -42,24 +42,24 @@ class CreateCategory extends Command
     public function handle()
     {
         $name = $this->ask('Please proive the category name');
-        if(empty($name)){
+        if (empty($name)) {
             $this->error("Not enough arguments (missing: \"category name\").");
             return 0;
         }
 
         $data = ["name" => $name];
-        if($parent_category_id = $this->ask('Please proive the category parent id (optional)')){
+        if ($parent_category_id = $this->ask('Please proive the category parent id (optional)')) {
             $data["parent_category_id"] = $parent_category_id;
         }
 
         $categoryRepository = new CategoryRepository(new Category());
         $categoryService = new CategoryService($categoryRepository);
 
-        try{
+        try {
             $category = $categoryService->store($data);
-            $this->info("Category created successfully, id: ".$category->id);
+            $this->info("Category created successfully, id: " . $category->id);
         } catch (Exception $e) {
-            $this->error("Error: ".$e->getMessage());
+            $this->error("Error: " . $e->getMessage());
         }
     }
 }
