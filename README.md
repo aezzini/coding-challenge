@@ -14,8 +14,10 @@ https://github.com/NextmediaMa/coding-challenges/tree/master/Junior%20Software%2
 4. Initialize the database schema using `php artisan migrate`
 5. Init Category seeder `php artisan db:seed --class=CategorySeeder`
 6. Init Product seeder `php artisan db:seed --class=ProductSeeder`
+8. Generate the encryption key `php artisan key:generate`
 7. Start the application `php artisan serve`
-8. Use `npm run watch` if needed
+9. Build the VueJS files `npm run dev` 
+10. Use `npm run watch` if needed
 
 ## Custom Commands
 - Create category `php artisan create:category`
@@ -39,34 +41,34 @@ https://github.com/NextmediaMa/coding-challenges/tree/master/Junior%20Software%2
 - The category and product controller Unit Tests are listed on `Tests\Unit`
 
 ## Gallery
-- Product List
+### Product List
 ![Product List](https://i.ibb.co/jrKh2T7/Product-List.jpg)
 
-- Product Form
+### Product Form
 ![Product Form](https://i.ibb.co/7nRxrWv/Product-Form.jpg)
 
-- Category List
+### Category List
 ![Category List](https://i.ibb.co/XkCGzdJ/Category-List.jpg)
 
-- Category Form
+### Category Form
 ![Category Form](https://i.ibb.co/syfc5P1/Category-Form.jpg)
 
-- Create Product Command Line
+### Create Product Command Line
 ![Create Product Command Line](https://i.ibb.co/PWRSrMt/Create-Product.jpg)
 
-- Create Category Command Line
+### Create Category Command Line
 ![Create Category Command Line](https://i.ibb.co/nn0hNY2/Create-Category.jpg)
 
-- Create Category Command Line
+### Create Category Command Line
 ![Create Category Command Line](https://i.ibb.co/nn0hNY2/Create-Category.jpg)
 
-- Make Service Command Line
+### Make Service Command Line
 ![Make Service Command Line](https://i.ibb.co/1QWym7C/Make-Service.jpg)
 
-- Make Repository Command Line
+### Make Repository Command Line
 ![Make Repository Command Line](https://i.ibb.co/sP4FqzS/Make-Repository.jpg)
 
-- Unit Test
+### Unit Test
 ![Unit Test](https://i.ibb.co/zSpVvTr/UnitTest.jpg)
 
 
